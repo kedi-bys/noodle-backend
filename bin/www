@@ -7,6 +7,12 @@
 const app = require('../app')
 const debug = require('debug')('noodle-backend:server')
 const http = require('http')
+const dotenv = require('dotenv')
+
+/**
+ * Run dotenv to setup environment variables
+ */
+dotenv.config()
 
 /**
  * Get port from environment and store in Express.
