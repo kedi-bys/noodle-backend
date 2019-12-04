@@ -3,13 +3,23 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const helmet = require('helmet')
 const compression = require('compression')
-
-const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
-const computerInfoRouter = require('./routes/computer-info')
-const deviceInfoRouter = require('./routes/device-info')
+const socketio = require('socket.io')
 
 const app = express()
+
+/**
+ * Setup socket.io
+ */
+const io = socketio()
+app.io = io
+
+const indexRouter = require('./routes/index')(io)
+const usersRouter = require('./routes/users')(io)
+const computerModelRouter = require('./routes/computer-model')(io)
+const computerInfoRouter = require('./routes/computer-info')(io)
+const printerDeviceRouter = require('./routes/printer-device')(io)
+const printerDeviceInfoRouter = require('./routes/printer-device-info')(io)
+const printerOidRouter = require('./routes/printer-oid')(io)
 
 /**
  * Middlewares
@@ -26,7 +36,10 @@ app.use(cookieParser())
  */
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
+app.use('/computer-model', computerModelRouter)
 app.use('/computer-info', computerInfoRouter)
-app.use('/device-info', deviceInfoRouter)
+app.use('/printer-device', printerDeviceRouter)
+app.use('/printer-device-info', printerDeviceInfoRouter)
+app.use('/printer-oid', printerOidRouter)
 
 module.exports = app
