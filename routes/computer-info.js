@@ -8,7 +8,7 @@ const ComputerInfo = require('../models/computer-info')
 router.use(authMiddleware)
 
 router.get('/', async (req, res, next) => {
-  res.json(await ComputerInfo.find({}))
+  res.json(await ComputerInfo.find(req.query))
 })
 
 router.post('/', async (req, res, next) => {
