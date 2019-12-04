@@ -6,6 +6,7 @@ const compression = require('compression')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
+const computerInfoRouter = require('./routes/computer-info')
 
 const app = express()
 
@@ -24,5 +25,6 @@ app.use(cookieParser())
  */
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
+app.use('/computer-info', computerInfoRouter)
 
 module.exports = app
