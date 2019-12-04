@@ -3,9 +3,16 @@ const router = express.Router()
 
 const authMiddleware = require('../middlewares/authentication')
 
+const ComputerInfo = require('../models/computer-info')
+
 router.use(authMiddleware)
-router.get('/', (req, res, next) => {
-  res.send('respond with a resource')
+
+router.get('/', async (req, res, next) => {
+  res.json(await ComputerInfo.find({}))
+})
+
+router.post('/', async (req, res, next) => {
+  res.status(500).end()
 })
 
 module.exports = router
