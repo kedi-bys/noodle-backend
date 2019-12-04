@@ -1,12 +1,7 @@
-const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const { computerInfoConnection } = require('../database/connections')
 
-dotenv.config()
-mongoose.connect(process.env.COMPUTER_INFO_MONGO, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
 
 const ComputerInfoSchema = new Schema({
   ComputerName: String,
@@ -23,7 +18,7 @@ const ComputerInfoSchema = new Schema({
   TCPInfo: [{ IPv4: String, IPv6: String, MAC: String }]
 })
 
-module.exports = mongoose.model(
+module.exports = computerInfoConnection.model(
   'ComputerInfo',
   ComputerInfoSchema,
   'computer_info'
