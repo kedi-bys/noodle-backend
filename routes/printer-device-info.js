@@ -4,12 +4,12 @@ module.exports = io => {
 
   const authMiddleware = require('../middlewares/authentication')
 
-  const ComputerInfo = require('../models/computer-info.model')
+  const PrinterDeviceInfo = require('../models/printer-device-info.model')
 
   router.use(authMiddleware)
 
   router.get('/', async (req, res, next) => {
-    let { limit = 20, offset = 0 } = req.query
+    let { limit = 100, offset = 0 } = req.query
 
     // limit ve offset'in number olduğundan emin ol.
     limit = +limit
@@ -23,7 +23,7 @@ module.exports = io => {
     delete query.limit
     delete query.offset
 
-    res.json(await ComputerInfo.find(query).skip(offset).limit(limit))
+    res.json(await PrinterDeviceInfo.find(query).skip(offset).limit(limit))
   })
 
   router.post('/', async (req, res, next) => {

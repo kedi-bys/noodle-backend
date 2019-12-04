@@ -4,7 +4,7 @@ module.exports = io => {
 
   const authMiddleware = require('../middlewares/authentication')
 
-  const ComputerInfo = require('../models/computer-info.model')
+  const PrinterDevice = require('../models/printer-device.model')
 
   router.use(authMiddleware)
 
@@ -23,7 +23,7 @@ module.exports = io => {
     delete query.limit
     delete query.offset
 
-    res.json(await ComputerInfo.find(query).skip(offset).limit(limit))
+    res.json(await PrinterDevice.find(query).skip(offset).limit(limit))
   })
 
   router.post('/', async (req, res, next) => {
