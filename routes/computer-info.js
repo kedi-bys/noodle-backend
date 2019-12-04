@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
   delete query.limit
   delete query.offset
 
-  res.json(await ComputerInfo.find({}).skip(offset).limit(limit))
+  res.json(await ComputerInfo.find(query).skip(offset).limit(limit))
 })
 
 router.post('/', async (req, res, next) => {
